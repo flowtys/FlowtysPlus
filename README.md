@@ -122,4 +122,4 @@ Thanks to [Th3Wall](https://github.com/Th3Wall) for giving a great starting poin
 
 [MIT](https://github.com/flowtys/FlowtysPlus/blob/main/LICENSE)
 
-<a href="https://www.buymeacoffee.com/kDNDbiD76O" target="_blank">Buy him a Coffee</a>
+<a href="https://www.buymeacoffee.com/th3wall" target="_blank">Buy him a Coffee</a>
