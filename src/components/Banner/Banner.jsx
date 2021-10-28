@@ -2,45 +2,62 @@ import "./banner.scss";
 import React from "react";
 import { motion } from "framer-motion";
 import { staggerOne, bannerFadeInLoadSectionVariants, bannerFadeInVariants, bannerFadeInUpVariants } from "../../motionUtils";
-import { BASE_IMG_URL } from "../../requests";
 import { FaPlay } from "react-icons/fa";
 import { BiInfoCircle } from "react-icons/bi";
-import { randomize, truncate } from "../../utils";
+import { truncate } from "../../utils";
 import { Link } from "react-router-dom";
 import SkeletonBanner from "../SkeletonBanner/SkeletonBanner";
 import { useDispatch, useSelector } from "react-redux";
 import { showModalDetail } from "../../redux/modal/modal.actions";
-import { selectTrendingMovies, selectNetflixMovies } from "../../redux/movies/movies.selectors";
-import { selectNetflixSeries } from "../../redux/series/series.selectors";
+import { selectBannerMovies, selectBannerCartoons, selectBannerClassics } from "../../redux/movies/movies.selectors";
+import { useEffect } from "react";
+import { fetchBannerMoviesAsync, fetchBannerCartoonsAsync, fetchBannerClassicsAsync } from "../../redux/movies/movies.actions";
+import requests from "../../requests";
+const {
+  fetchBannerMovies,
+  fetchBannerCartoons,
+  fetchBannerClassics
+} = requests;
 
 const Banner = ({ type }) => {
-	let selector;
-	switch (type) {
-		case "movies":
-			selector = selectTrendingMovies;
-			break;
-		case "series":
-			selector = selectNetflixSeries;
-			break;
-		default:
-			selector = selectNetflixMovies;
-			break;
-	}
-
+  let selector;
+  let request;
+  let requestAsync;
+  switch (type) {
+    case "movies":
+      requestAsync = fetchBannerClassicsAsync;
+      request = fetchBannerClassics;
+      selector = selectBannerClassics;
+      break;
+    case "cartoons":
+      requestAsync = fetchBannerCartoonsAsync;
+      request = fetchBannerCartoons;
+      selector = selectBannerCartoons;
+      break;
+    default:
+      requestAsync = fetchBannerMoviesAsync;
+      request = fetchBannerMovies;
+      selector = selectBannerMovies;
+      break;
+  } 
 	const myData = useSelector(selector);
+  const dispatch = useDispatch()
 	const { loading, error, data: results } = myData;
-	const finalData = results[randomize(results)];
+	const finalData = results && results.length ? results[0] : null;
 	const fallbackTitle = finalData?.title || finalData?.name || finalData?.original_name;
 	const description = truncate(finalData?.overview, 150);
-	const dispatch = useDispatch();
 
-	const handlePlayAnimation = event => {
+	const handlePlayer = event => {
 		event.stopPropagation();
 	};
 
 	const handleModalOpening = () => {
 		dispatch(showModalDetail({ ...finalData, fallbackTitle }));
 	}
+
+  useEffect(() => {
+    dispatch(requestAsync(request, false))
+  }, [dispatch, requestAsync, request])
 
 	return (
 		<>
@@ -62,7 +79,7 @@ const Banner = ({ type }) => {
 					animate='animate'
 					exit='exit'
 					className="Banner"
-					style={{backgroundImage: `url(${BASE_IMG_URL}/${finalData?.backdrop_path})`}}
+					style={{backgroundImage: `url(${finalData?.poster_path})`}}
 				>
 					<motion.div
 						className="Banner__content"
@@ -75,9 +92,9 @@ const Banner = ({ type }) => {
 						<motion.div variants={bannerFadeInUpVariants} className="Banner__buttons">
 							<Link
 								className="Banner__button"
-								onClick={handlePlayAnimation}
-								to={"/play"}
-							>
+								onClick={handlePlayer}
+                to={{pathname: `/play`, search: `?file=${finalData?.id}&title=${encodeURIComponent(finalData?.title)}`}}
+                >
 								<FaPlay />
 								<span>Play</span>
 							</Link>

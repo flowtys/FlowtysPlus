@@ -1,26 +1,51 @@
 import { combineReducers } from "redux";
-import actionMoviesReducer from "./action.reducer";
-import adventureMoviesReducer from "./adventure.reducer";
-import comedyMoviesReducer from "./comedy.reducer";
-import horrorMoviesReducer from "./horror.reducer";
-import netflixMoviesReducer from "./netflix.reducer";
-import romanceMoviesReducer from "./romance.reducer";
-import topRatedMoviesReducer from "./topRated.reducer";
-import trendingMoviesReducer from "./trending.reducer";
-import animationMoviesReducer from './animation.reducer';
-import upcomingMoviesReducer from './upcoming.reducer';
-import latestReleasedMoviesReducer from "./latestReleased.reducer";
+import * as allReducers from "./all.reducers";
 
 export default combineReducers({
-    actionMovies: actionMoviesReducer,
-    adventureMovies: adventureMoviesReducer,
-    animationMovies: animationMoviesReducer,
-    comedyMovies: comedyMoviesReducer,
-    horrorMovies: horrorMoviesReducer,
-    netflixMovies: netflixMoviesReducer,
-    romanceMovies: romanceMoviesReducer,
-    topRatedMovies: topRatedMoviesReducer,
-    trendingMovies: trendingMoviesReducer,
-    upcomingMovies: upcomingMoviesReducer,
-    latestMovies: latestReleasedMoviesReducer
+    comedyMovies: allReducers.comedyMoviesReducer,
+    horrorMovies: allReducers.horrorMoviesReducer,
+    bannerMovies: allReducers.bannerMoviesReducer,
+    bannerCartoons: allReducers.bannerCartoonsReducer,
+    bannerClassics: allReducers.bannerClassicsReducer,
+    featuredMovies: allReducers.featuredMoviesReducer,
+    // Generic Cartoons
+    genericCartoons: allReducers.genericCartoonsMoviesReducer,
+    // Generic Movies
+    genericMovies: allReducers.genericMoviesMoviesReducer,
+    // Chaplin
+    chaplinMovies: allReducers.chaplinMoviesReducer,
+    // The Three Stooges
+    threeStoogesMovies: allReducers.threeStoogesMoviesReducer,
+    // Romance
+    romanceMovies: allReducers.romanceMoviesReducer,
+    // Popeye
+    popeyeMovies: allReducers.popeyeMoviesReducer,
+    // Funny
+    funnyMovies: allReducers.funnyMoviesReducer,
+    // Drama
+    dramaMovies: allReducers.dramaMoviesReducer,
+    // Others
+    othersMovies: allReducers.othersMoviesReducer,
+    // Looney
+    looneyMovies: allReducers.looneyMoviesReducer,
+    // Superman
+    supermanMovies: allReducers.supermanMoviesReducer,
+    // Betty
+    bettyMovies: allReducers.bettyMoviesReducer,
+    // Oswald
+    oswaldMovies: allReducers.oswaldMoviesReducer,
+    // Merrie
+    merrieMovies: allReducers.merrieMoviesReducer,
+    // Other Cartoons:
+    otherCartoonsMovies: allReducers.otherCartoonsMoviesReducer,
+    // Avant
+    avantMovies: allReducers.avantMoviesReducer,
+    // Crime
+    crimeMovies: allReducers.crimeMoviesReducer,
+    // Fantasy
+    fantasyMovies: allReducers.fantasyMoviesReducer,
+    // Science
+    scienceMovies: allReducers.scienceMoviesReducer,
+    // Western
+    westernMovies: allReducers.westernMoviesReducer,
 })

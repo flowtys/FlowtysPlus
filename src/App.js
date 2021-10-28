@@ -5,6 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar/Navbar"
 import Homepage from "./pages/Homepage/Homepage"
 import Movies from "./pages/Movies/Movies"
+import Cartoons from "./pages/Cartoons/Cartoons"
 import TVSeries from './pages/TVSeries/TVSeries';
 import Popular from "./pages/Popular/Popular";
 import MyList from './pages/MyList/MyList';
@@ -13,7 +14,7 @@ import Search from "./pages/Search/Search";
 import Category from "./pages/Category/Category";
 import DetailModal from "./components/DetailModal/DetailModal";
 import SplashAnimation from "./components/SplashAnimation/SplashAnimation";
-import PlayAnimation from "./components/PlayAnimation/PlayAnimation";
+import Player from "./components/Player/Player";
 import { selectCurrentUser } from './redux/auth/auth.selectors';
 import { selectSearchResults } from "./redux/search/search.selectors";
 import { checkUserSession } from "./redux/auth/auth.actions";
@@ -51,7 +52,7 @@ const App = () => {
                     />
                     <Route
                         path="/play"
-                        component={PlayAnimation}
+                        component={Player}
                     />
                     <Route
                         path="/search"
@@ -81,6 +82,18 @@ const App = () => {
                     <Route
                         exact
                         path="/tvseries/:categoryName"
+                        render={(props) => currentUser
+                            ? <Category {...props} />
+                            : <Redirect to="/login" />}
+                    />
+                    <Route
+                        exact
+                        path="/cartoons"
+                        render={() => currentUser ? <Cartoons /> : <Redirect to="/login" />}
+                    />
+                    <Route
+                        exact
+                        path="/cartoons/:categoryName"
                         render={(props) => currentUser
                             ? <Category {...props} />
                             : <Redirect to="/login" />}
@@ -117,6 +130,11 @@ const App = () => {
                     <Route
                         exact
                         path="/login"
+                        render={() => currentUser ? <Redirect to="/splash"/> : <Auth />}
+                    />
+                    <Route
+                        exact
+                        path="/callback"
                         render={() => currentUser ? <Redirect to="/splash"/> : <Auth />}
                     />
                     <Route path="*">

@@ -1,420 +1,313 @@
-import axios from "../../axiosInstance";
 import { moviesActionTypes } from "./movies.types";
-
-// Action
-export const fetchActionMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_ACTION_MOVIES_REQUEST,
-});
-
-export const fetchActionMoviesSuccess = (actionMovies, isPage) => ({
-	type: isPage
-		? moviesActionTypes.FETCH_ACTION_MOVIES_SUCCESS
-		: moviesActionTypes.LOAD_MORE_ACTION_MOVIES_SUCCESS,
-	payload: actionMovies,
-});
-
-export const fetchActionMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_ACTION_MOVIES_FAILURE,
-	payload: error,
-});
-
-export const fetchActionMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchActionMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const actionMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-				if (isPage) {
-					dispatch(fetchActionMoviesSuccess(actionMovies, isPage));
-				} else dispatch(fetchActionMoviesSuccess(actionMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchActionMoviesFailure(errorMessage));
-			});
-	};
-};
-
-// Adventure
-export const fetchAdventureMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_ADVENTURE_MOVIES_REQUEST,
-});
-
-export const fetchAdventureMoviesSuccess = (adventureMovies, isPage) => ({
-	type: isPage
-        ? moviesActionTypes.FETCH_ADVENTURE_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_ADVENTURE_MOVIES_SUCCESS,
-	payload: adventureMovies,
-});
-
-export const fetchAdventureMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_ADVENTURE_MOVIES_FAILURE,
-	payload: error,
-});
-
-export const fetchAdventureMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchAdventureMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const adventureMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchAdventureMoviesSuccess(adventureMovies, isPage));
-                } else dispatch(fetchAdventureMoviesSuccess(adventureMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchAdventureMoviesFailure(errorMessage));
-			});
-	};
-};
-
-// SplashAnimation
-export const fetchAnimationMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_ANIMATION_MOVIES_REQUEST,
-});
-
-export const fetchAnimationMoviesSuccess = (animationMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_ANIMATION_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_ANIMATION_MOVIES_SUCCESS,
-	payload: animationMovies,
-});
-
-export const fetchAnimationMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_ANIMATION_MOVIES_FAILURE,
-	payload: error,
-});
-
-export const fetchAnimationMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchAnimationMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const animationMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchAnimationMoviesSuccess(animationMovies, isPage));
-                } else dispatch(fetchAnimationMoviesSuccess(animationMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchAnimationMoviesFailure(errorMessage));
-			});
-	};
-};
+import { fetchContentAsync } from "../utils"
 
 // Comedy
-export const fetchComedyMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_COMEDY_MOVIES_REQUEST,
-});
-
-export const fetchComedyMoviesSuccess = (comedyMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_COMEDY_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_COMEDY_MOVIES_SUCCESS,
-	payload: comedyMovies,
-});
-
-export const fetchComedyMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_COMEDY_MOVIES_FAILURE,
-	payload: error,
-});
-
 export const fetchComedyMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchComedyMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const comedyMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchComedyMoviesSuccess(comedyMovies, isPage));
-                } else dispatch(fetchComedyMoviesSuccess(comedyMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchComedyMoviesFailure(errorMessage));
-			});
-	};
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_COMEDY_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_COMEDY_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_COMEDY_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_COMEDY_MOVIES_SUCCESS
+  )
 };
 
 // Horror
-export const fetchHorrorMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_HORROR_MOVIES_REQUEST,
-});
-
-export const fetchHorrorMoviesSuccess = (horrorMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_HORROR_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_HORROR_MOVIES_SUCCESS,
-	payload: horrorMovies,
-});
-
-export const fetchHorrorMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_HORROR_MOVIES_FAILURE,
-	payload: error,
-});
-
 export const fetchHorrorMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchHorrorMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const horrorMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchHorrorMoviesSuccess(horrorMovies, isPage));
-                } else dispatch(fetchHorrorMoviesSuccess(horrorMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchHorrorMoviesFailure(errorMessage));
-			});
-	};
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_HORROR_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_HORROR_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_HORROR_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_HORROR_MOVIES_SUCCESS
+  )
 };
 
-// Netflix
-export const fetchNetflixMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_NETFLIX_MOVIES_REQUEST,
-});
+// Timeless Classics 
+export const fetchFeaturedMoviesAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_FEATURED_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_FEATURED_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_FEATURED_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_FEATURED_MOVIES_SUCCESS,
+    true
+  )
+};
 
-export const fetchNetflixMoviesSuccess = (netflixMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_NETFLIX_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_NETFLIX_MOVIES_SUCCESS,
-	payload: netflixMovies,
-});
+// Banner Home
+export const fetchBannerMoviesAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_BANNER_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_BANNER_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_BANNER_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_BANNER_MOVIES_SUCCESS
+  )
+};
 
-export const fetchNetflixMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_NETFLIX_MOVIES_FAILURE,
-	payload: error,
-});
+export const fetchBannerCartoonsAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_CARTOON_BANNER_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_CARTOON_BANNER_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_CARTOON_BANNER_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_CARTOON_MORE_BANNER_MOVIES_SUCCESS
+  )
+};
 
-export const fetchNetflixMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchNetflixMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const netflixMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchNetflixMoviesSuccess(netflixMovies, isPage));
-                } else dispatch(fetchNetflixMoviesSuccess(netflixMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchNetflixMoviesFailure(errorMessage));
-			});
-	};
+export const fetchBannerClassicsAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_CLASSICS_BANNER_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_CLASSICS_BANNER_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_CLASSICS_BANNER_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_CLASSICS_MORE_BANNER_MOVIES_SUCCESS
+  )
+};
+
+// Generic Cartoons
+export const fetchGenericCartoonsMoviesAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_GENERIC_CARTOONS_REQUEST,
+    moviesActionTypes.FETCH_GENERIC_CARTOONS_SUCCESS,
+    moviesActionTypes.FETCH_GENERIC_CARTOONS_FAILURE,
+    moviesActionTypes.LOAD_MORE_GENERIC_CARTOONS_SUCCESS
+  )
+};
+
+// Generic Movies
+export const fetchGenericMoviesMoviesAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_GENERIC_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_GENERIC_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_GENERIC_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_GENERIC_MOVIES_SUCCESS
+  )
+};
+
+// Chaplin
+export const fetchChaplinMoviesAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_CHAPLIN_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_CHAPLIN_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_CHAPLIN_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_CHAPLIN_MOVIES_SUCCESS
+  )
+};
+
+// The Three Stooges
+export const fetchThreeStoogesMoviesAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_THREE_STOOGES_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_THREE_STOOGES_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_THREE_STOOGES_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_THREE_STOOGES_MOVIES_SUCCESS
+  )
 };
 
 // Romance
-export const fetchRomanceMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_ROMANCE_MOVIES_REQUEST,
-});
-
-export const fetchRomanceMoviesSuccess = (romanceMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_ROMANCE_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_ROMANCE_MOVIES_SUCCESS,
-	payload: romanceMovies,
-});
-
-export const fetchRomanceMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_ROMANCE_MOVIES_FAILURE,
-	payload: error,
-});
-
-export const fetchRomanceMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchRomanceMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const romanceMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchRomanceMoviesSuccess(romanceMovies, isPage));
-                } else dispatch(fetchRomanceMoviesSuccess(romanceMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchRomanceMoviesFailure(errorMessage));
-			});
-	};
+export const fetchRomanceAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_ROMANCE_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_ROMANCE_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_ROMANCE_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_ROMANCE_STOOGES_MOVIES_SUCCESS
+  )
 };
 
-// Top Rated
-export const fetchTopRatedMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_TOP_RATED_MOVIES_REQUEST,
-});
-
-export const fetchTopRatedMoviesSuccess = (topRatedMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_TOP_RATED_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_TOP_RATED_MOVIES_SUCCESS,
-	payload: topRatedMovies,
-});
-
-export const fetchTopRatedMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_TOP_RATED_MOVIES_FAILURE,
-	payload: error,
-});
-
-export const fetchTopRatedMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchTopRatedMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const topRatedMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchTopRatedMoviesSuccess(topRatedMovies, isPage));
-                } else dispatch(fetchTopRatedMoviesSuccess(topRatedMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchTopRatedMoviesFailure(errorMessage));
-			});
-	};
+// Popeye
+export const fetchPopeyeAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_POPEYE_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_POPEYE_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_POPEYE_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_POPEYE_STOOGES_MOVIES_SUCCESS
+  )
 };
 
-// Trending
-export const fetchTrendingMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_TRENDING_MOVIES_REQUEST,
-});
-
-export const fetchTrendingMoviesSuccess = (trendingMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_TRENDING_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_TRENDING_MOVIES_SUCCESS,
-	payload: trendingMovies,
-});
-
-export const fetchTrendingMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_TRENDING_MOVIES_FAILURE,
-	payload: error,
-});
-
-export const fetchTrendingMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchTrendingMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const trendingMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchTrendingMoviesSuccess(trendingMovies, isPage));
-                } else dispatch(fetchTrendingMoviesSuccess(trendingMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchTrendingMoviesFailure(errorMessage));
-			});
-	};
+// Funny
+export const fetchFunnyAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_FUNNY_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_FUNNY_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_FUNNY_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_FUNNY_MOVIES_SUCCESS
+  )
 };
 
-// Upcoming
-export const fetchUpcomingMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_UPCOMING_MOVIES_REQUEST,
-});
-
-export const fetchUpcomingMoviesSuccess = (upcomingMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_UPCOMING_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_UPCOMING_MOVIES_SUCCESS,
-	payload: upcomingMovies,
-});
-
-export const fetchUpcomingTrendingMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_UPCOMING_MOVIES_FAILURE,
-	payload: error,
-});
-
-export const fetchUpcomingMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchUpcomingMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const upcomingMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchUpcomingMoviesSuccess(upcomingMovies, isPage));
-                } else dispatch(fetchUpcomingMoviesSuccess(upcomingMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchUpcomingTrendingMoviesFailure(errorMessage));
-			});
-	};
+// Drama
+export const fetchDramaAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_DRAMA_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_DRAMA_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_DRAMA_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_DRAMA_MOVIES_SUCCESS
+  )
 };
 
-// Latest
-export const fetchLatestMoviesRequest = () => ({
-	type: moviesActionTypes.FETCH_LATEST_MOVIES_REQUEST,
-});
+// Others
+export const fetchOthersAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_OTHERS_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_OTHERS_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_OTHERS_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_OTHERS_MOVIES_SUCCESS
+  )
+};
 
-export const fetchLatestMoviesSuccess = (latestMovies, isPage) => ({
-    type: isPage
-        ? moviesActionTypes.FETCH_LATEST_MOVIES_SUCCESS
-        : moviesActionTypes.LOAD_MORE_LATEST_MOVIES_SUCCESS,
-	payload: latestMovies,
-});
+// Looney Tunes
+export const fetchLooneyAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_LOONEY_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_LOONEY_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_LOONEY_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_LOONEY_MOVIES_SUCCESS
+  )
+};
 
-export const fetchLatestTrendingMoviesFailure = error => ({
-	type: moviesActionTypes.FETCH_LATEST_MOVIES_FAILURE,
-	payload: error,
-});
+// Superman
+export const fetchSupermanAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_SUPERMAN_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_SUPERMAN_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_SUPERMAN_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_SUPERMAN_MOVIES_SUCCESS
+  )
+};
 
-export const fetchLatestMoviesAsync = (fetchUrl, isPage) => {
-	return dispatch => {
-		dispatch(fetchLatestMoviesRequest());
-		axios
-			.get(fetchUrl)
-			.then(res => {
-				const latestMovies = res.data.results.map(el => ({
-					...el,
-					isFavourite: false,
-				}));
-                if (isPage) {
-                    dispatch(fetchLatestMoviesSuccess(latestMovies, isPage));
-                } else dispatch(fetchLatestMoviesSuccess(latestMovies));
-			})
-			.catch(error => {
-				const errorMessage = error.message;
-				dispatch(fetchLatestTrendingMoviesFailure(errorMessage));
-			});
-	};
+// Betty
+export const fetchBettyAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_BETTY_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_BETTY_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_BETTY_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_BETTY_MOVIES_SUCCESS
+  )
+};
+
+// Oswald
+export const fetchOswaldAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_OSWALD_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_OSWALD_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_OSWALD_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_OSWALD_MOVIES_SUCCESS
+  )
+};
+
+// Merrie Melodies
+export const fetchMerrieAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_MERRIE_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_MERRIE_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_MERRIE_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_MERRIE_MOVIES_SUCCESS
+  )
+};
+
+// Other Cartoons:
+export const fetchOthersCartoonsAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_OTHERS_CARTOONS_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_OTHERS_CARTOONS_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_OTHERS_CARTOONS_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_OTHERS_CARTOONS_MOVIES_SUCCESS
+  )
+};
+
+// Avant
+export const fetchAvantAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_AVANT_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_AVANT_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_AVANT_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_AVANT_MOVIES_SUCCESS
+  )
+};
+
+// Crime
+export const fetchCrimeAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_CRIME_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_CRIME_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_CRIME_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_CRIME_MOVIES_SUCCESS
+  )
+};
+
+// Fantasy
+export const fetchFantasyAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_FANTASY_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_FANTASY_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_FANTASY_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_FANTASY_MOVIES_SUCCESS
+  )
+};
+
+// Science
+export const fetchScienceAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_SCIENCE_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_SCIENCE_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_SCIENCE_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_SCIENCE_MOVIES_SUCCESS
+  )
+};
+
+// Western
+export const fetchWesternAsync = (fetchUrl, isPage) => {
+  return fetchContentAsync(
+    fetchUrl,
+    isPage,
+    moviesActionTypes.FETCH_WESTERN_MOVIES_REQUEST,
+    moviesActionTypes.FETCH_WESTERN_MOVIES_SUCCESS,
+    moviesActionTypes.FETCH_WESTERN_MOVIES_FAILURE,
+    moviesActionTypes.LOAD_MORE_WESTERN_MOVIES_SUCCESS
+  )
 };
