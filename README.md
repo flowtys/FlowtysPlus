@@ -122,6 +122,4 @@ Thanks to [Th3Wall](https://github.com/Th3Wall) for giving a great starting poin
 
 [MIT](https://github.com/flowtys/FlowtysPlus/blob/main/LICENSE)
 
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="kDNDbiD76O" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy him a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
-
 <a href="https://www.buymeacoffee.com/kDNDbiD76O" target="_blank">Buy him a Coffee</a>
